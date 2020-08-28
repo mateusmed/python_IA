@@ -1,7 +1,6 @@
+deprecado:
+------------------------------------------------------------------------------------
 https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/#0
-
-
-
 
 
 python retrain.py --image_dir ~/flower_photos
@@ -37,8 +36,15 @@ file_name = "/home/mateus.santos/dev/tensorflow/tensorflow-for-poets-2/tf_files/
 ===========
 para novos paths alterar o file retrained_labels.txt
 
-
-
 =======================
 
 http://lovepython.net/2019/01/13/python-download-de-multiplas-imagens-do-google-rapidamente/
+
+
+------------------------------------------------------------------------------------
+
+atulização:
+
+------------------------------------------------------------------------------------
+https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/images/transfer_learning_with_hub.ipynb
+------------------------------------------------------------------------------------
