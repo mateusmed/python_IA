@@ -1,0 +1,50 @@
+deprecado:
+------------------------------------------------------------------------------------
+https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/#0
+
+
+python retrain.py --image_dir ~/flower_photos
+
+
+/home/mmed/dev/tensorflow/tensorflow-for-poets-2/tf_files
+python retrain.py --bottleneck_dir=tf_files/bottlenecks --how_many_training_steps=500 --model_dir=tf_files/models --output_graph=tf_files/retrained_graph.pb --output_labels=tf_files/retrained_labels.txx --image_dir=tf_files/paintings
+....
+python retrain.py --bottleneck_dir=/home/mmed/dev/tensorflow/tensorflow-for-poets-2/tf_files/bottlenecks --how_many_training_steps=500 --model_dir=/home/mmed/dev/tensorflow/tensorflow-for-poets-2/tf_files/models --output_graph=/home/mmed/dev/tensorflow/tensorflow-for-poets-2/tf_files/retrained_graph.pb --output_labels=/home/mmed/dev/tensorflow/tensorflow-for-poets-2/tf_files/retrained_labels.txx --image_dir=/home/mmed/dev/tensorflow/tensorflow-for-poets-2/tf_files/flower_photos
+===================
+
+
+
+o que foi feito:
+sudo pip install tensorflow==1.7.* --ignore-installed
+
+(tentar um de cada vez)
+sudo pip install tensorflow
+sudo pip install tf-nightly
+
+alterado dentro do arquivo label_image.py:
+apontando para os parâmetros fora do código, procurar passar todos os parâmetros
+
+file_name = "/home/mateus.santos/dev/tensorflow/tensorflow-for-poets-2/tf_files/flower_photos/daisy/21652746_cc379e0eea_m.jpg"
+ model_file = "/home/mateus.santos/dev/tensorflow/tensorflow-for-poets-2/tf_files/retrained_graph.pb"
+ label_file = "/home/mateus.santos/dev/tensorflow/tensorflow-for-poets-2/tf_files/retrained_labels.txt"
+ input_height = 224
+ input_width = 224
+ input_mean = 128
+ input_std = 128
+ input_layer = "input"
+ output_layer = "final_result"
+===========
+para novos paths alterar o file retrained_labels.txt
+
+=======================
+
+http://lovepython.net/2019/01/13/python-download-de-multiplas-imagens-do-google-rapidamente/
+
+
+------------------------------------------------------------------------------------
+
+atulização:
+
+------------------------------------------------------------------------------------
+https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/images/transfer_learning_with_hub.ipynb
+------------------------------------------------------------------------------------
