@@ -5,7 +5,7 @@
 
 
 <div align="center">
-    <h5>This project focuses on the study of AI and various algorithms.</h5>
+    <h5>This project focuses on the study algorithms of AI.</h5>
 </div>
 
 
