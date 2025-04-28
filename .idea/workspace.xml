@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/6 - 2neu - xor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/1- neural_ports.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/1- neural_ports.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - perceptron_1neu.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/2 - perceptron_1neu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - 1neu_ML.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/3 - 1neu_ML.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/4 - 1neu_ML_forceLearningByPercent.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/4 - 1neu_ML_forceLearningByPercent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/5 - 1neu_ML_sigmoid.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/5 - 1neu_ML_sigmoid.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +42,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="-1" />
     <option name="width" value="1366" />
@@ -47,20 +56,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/mmed/dev/workspaceMateus/python_IA"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl.localhost/Ubuntu-24.04/home/mmed/dev/workspaceMateus/python_IA&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\dev\workspaceMateus\python_IA\image_classifier\teste3\picture_run" />
       <recent name="C:\dev\workspaceMateus\python_IA\image_classifier" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium" />
       <recent name="$PROJECT_DIR$/pos" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
@@ -89,11 +101,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.run" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-fb887030ada0-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.21565.199" />
+        <option value="bundled-python-sdk-1b1018131e27-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.180" />
       </set>
     </attachedChunks>
   </component>
