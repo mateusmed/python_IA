@@ -1,3 +1,8 @@
+
+"""
+esse script tem por objetivo mostrar graficos
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 
