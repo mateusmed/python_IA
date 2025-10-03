@@ -22,7 +22,12 @@ def inicializar_pesos():
     bias = random.gauss(0, 1)
     return peso1, peso2, bias
 
-def treinar_neuronio(entradas, saidas_esperadas, taxa_aprendizado=0.1, epocas=10000, taxa_acerto=95):
+def treinar_neuronio(entradas,
+                     saidas_esperadas,
+                     taxa_aprendizado=0.1,
+                     epocas=10000,
+                     taxa_acerto=95):
+
     peso1, peso2, bias = inicializar_pesos()
 
     for epoca in range(epocas):
@@ -61,7 +66,11 @@ def testar_neuronio(entradas, peso1, peso2, bias):
         soma = (entrada[0] * peso1) + (entrada[1] * peso2) + bias
         print(f'Entrada: {entrada} => Saída: {step_activation(soma)}')
 
-entradas = [(0, 0), (0, 1), (1, 0), (1, 1)]
+entradas = [(0, 0),
+            (0, 1),
+            (1, 0),
+            (1, 1)]
+
 saidas_esperadas = [0, 1, 1, 0]
 
 epocas = 50000
