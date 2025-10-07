@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/python_IA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/python_IA.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/activation_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/activation_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_and.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_and.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_xor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +53,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.logic_input_xor.executor": "Debug",
+    "Python.logic_input_xor.executor": "Run",
     "Python.run.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -210,13 +205,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet.py</url>
-          <line>96</line>
+          <line>98</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet.py</url>
-          <line>19</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
