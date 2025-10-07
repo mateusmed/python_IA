@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/activation_functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_and.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_xor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/network.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/1 - neural_ports.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/1 - basic neuronium/1 - neural_ports.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/2 - perceptron_1neu.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/1 - basic neuronium/2 - perceptron_1neu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/3 - 1neu_ML.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/1 - basic neuronium/3 - 1neu_ML.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/4 - 1neu_ML_forceLearningByPercent.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/1 - basic neuronium/4 - 1neu_ML_forceLearningByPercent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/5 - 1neu_ML_sigmoid.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/1 - basic neuronium/5 - 1neu_ML_sigmoid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/6 - 2neu - xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/1 - basic neuronium/6 - 2neu - xor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/1 - basic neuronium/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_xor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/network.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +35,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -57,16 +51,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.run.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/mmed/developer/workspaceMateus/python_IA",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mmed/developer/workspaceMateus/python_IA&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\dev\workspaceMateus\python_IA\image_classifier\teste3\picture_run" />
@@ -103,11 +100,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.run" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -131,6 +123,7 @@
       <workItem from="1595856451230" duration="41000" />
       <workItem from="1605792765944" duration="1135000" />
       <workItem from="1637505194331" duration="2198000" />
+      <workItem from="1759840579338" duration="11000" />
     </task>
     <servers />
   </component>
