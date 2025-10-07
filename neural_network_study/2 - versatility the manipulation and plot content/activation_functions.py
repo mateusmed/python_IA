@@ -6,6 +6,12 @@ import math
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
+"""
+    output = valor já ativado pela sigmoid, não o valor bruto (z)
+"""
+def sigmoid_derivative(output):
+    return output * (1 - output)
+
 def relu(x):
     return np.maximum(0, x)
 

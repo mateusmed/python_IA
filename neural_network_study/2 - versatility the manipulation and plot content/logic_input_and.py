@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-import network as network
+import neuralnet as network
 import activation_functions as activation_functions
 
 

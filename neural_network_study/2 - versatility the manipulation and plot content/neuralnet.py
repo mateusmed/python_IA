@@ -3,15 +3,21 @@ import numpy as np
 import activation_functions as activation_functions
 
 
-def one_neuronium_simple(inputs, pesos, bias, activation_func):
+def one_neuronium_simple(inputs,
+                         pesos,
+                         bias,
+                         activation_func):
+
     soma = np.dot(inputs, pesos) + bias
     return activation_func(soma)
 
 
-def create_neuronium(num_inputs, activation_function = activation_functions.step_activation):
+def create_neuron(neuron_id,
+                  num_inputs,
+                  activation_function = activation_functions.step_activation):
     neuron = {
         "id": neuron_id,
-        "weights": np.random.randn(num_inputs),
+        "weights": np.random.randn(float(num_inputs)),
         "bias": np.random.randn(),
         "activation": activation_function,
         "output": 0.0,
@@ -21,11 +27,14 @@ def create_neuronium(num_inputs, activation_function = activation_functions.step
     return neuron
 
 
-def create_layer(num_neurons, num_inputs_per_neuron, layer_number):
+def create_layer(num_neurons,
+                 num_inputs_per_neuron,
+                 layer_number):
     layer = []
     for neuron_index in range(1, num_neurons + 1):
         neuron_id = f"{layer_number}.{neuron_index}"
         layer.append(create_neuron(num_inputs_per_neuron, neuron_id))
+
     return layer
 
 
@@ -53,7 +62,7 @@ def build_network(layer_structure, activation_func):
         num_inputs = layer_structure[i-1]   # número de entradas da camada anterior
         num_neurons = layer_structure[i]    # número de neurônios nesta camada
 
-        layer = create_layer(num_neurons, num_inputs)
+        layer = create_layer(num_neurons, num_inputs, i)
         network.append(layer)
 
     return network
@@ -66,13 +75,14 @@ def forward_pass(network, input_vector):
         layer_outputs = []
         for neuron in layer:
 
-            z = np.dot(neuron["weights"], inputs) + neuron["bias"]
-            neuron["output"] = sigmoid(z)
+            calc = np.dot(neuron["weights"], inputs) + neuron["bias"]
+            activation_response = neuron["activation"](calc)
+            neuron["output"] = activation_response
             layer_outputs.append(neuron["output"])
 
             neuron["log"].append({
                 "inputs": inputs.copy(),
-                "weighted_sum": z,
+                "weighted_sum": calc,
                 "output": neuron["output"]
             })
         inputs = layer_outputs
@@ -81,7 +91,7 @@ def forward_pass(network, input_vector):
 
 """
     Calcula o delta de cada neurônio e atualiza pesos e bias.
-    """
+"""
 def backward_pass(network, input_vector, expected_output, learning_rate):
 
     for layer_index in reversed(range(len(network))):
@@ -101,7 +111,7 @@ def backward_pass(network, input_vector, expected_output, learning_rate):
                 errors.append(error)
 
         for neuron_index, neuron in enumerate(layer):
-            neuron["delta"] = errors[neuron_index] * sigmoid_derivative(neuron["output"])
+            neuron["delta"] = errors[neuron_index] * activation_functions.sigmoid_derivative(neuron["output"])
 
             if layer_index == 0:
                 inputs_to_use = input_vector
