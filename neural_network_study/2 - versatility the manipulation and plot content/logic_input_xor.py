@@ -24,6 +24,8 @@ def main():
     network = neuralnet.build_network([2, 2, 1],
                                       activation_functions.step_activation)
 
+    neuralnet.train_network(network, input_logic_ports, port_and_result_expected, 1000)
+
     print("Rede inicial (pesos e bias aleatórios):")
     for camada in network:
         for neuron in camada:
@@ -32,7 +34,7 @@ def main():
     # Testa a rede
     print("\nResultados com pesos aleatórios (não resolve ainda o XOR):")
     for entrada, esperado in zip(input_logic_ports, port_and_result_expected):
-        saida = neuralnet.backward_pass(network, entrada)
+        saida = neuralnet.backward_pass(network, entrada, port_and_result_expected)
         print(f"Entrada: {entrada} | Esperado: {esperado} | Obtido: {saida}")
 
 

@@ -1,5 +1,6 @@
 
 import numpy as np
+import matplotlib.pyplot as plt
 import activation_functions as activation_functions
 
 
@@ -17,7 +18,7 @@ def create_neuron(neuron_id,
                   activation_function = activation_functions.step_activation):
     neuron = {
         "id": neuron_id,
-        "weights": np.random.randn(float(num_inputs)),
+        "weights": np.random.randn(num_inputs),
         "bias": np.random.randn(),
         "activation": activation_function,
         "output": 0.0,
@@ -33,7 +34,7 @@ def create_layer(num_neurons,
     layer = []
     for neuron_index in range(1, num_neurons + 1):
         neuron_id = f"{layer_number}.{neuron_index}"
-        layer.append(create_neuron(num_inputs_per_neuron, neuron_id))
+        layer.append(create_neuron(neuron_id, num_inputs_per_neuron))
 
     return layer
 
@@ -100,7 +101,10 @@ def backward_pass(network, input_vector, expected_output, learning_rate):
 
         if layer_index == len(network) - 1:
             for neuron_index, neuron in enumerate(layer):
-                error = neuron["output"] - expected_output[neuron_index]
+                if np.isscalar(expected_output):
+                    error = neuron["output"] - expected_output
+                else:
+                    error = neuron["output"] - expected_output[neuron_index]
                 errors.append(error)
         else:
             for neuron_index, neuron in enumerate(layer):
@@ -111,7 +115,8 @@ def backward_pass(network, input_vector, expected_output, learning_rate):
                 errors.append(error)
 
         for neuron_index, neuron in enumerate(layer):
-            neuron["delta"] = errors[neuron_index] * activation_functions.sigmoid_derivative(neuron["output"])
+            output = neuron["output"]
+            neuron["delta"] = errors[neuron_index] * activation_functions.sigmoid_derivative(output)
 
             if layer_index == 0:
                 inputs_to_use = input_vector
@@ -121,6 +126,59 @@ def backward_pass(network, input_vector, expected_output, learning_rate):
                 neuron["weights"][i] -= learning_rate * neuron["delta"] * inputs_to_use[i]
 
             neuron["bias"] -= learning_rate * neuron["delta"]
+
+
+
+
+
+
+def train_network(network, input_value, output_value, epochs, learning_rate=0.1):
+    """
+    Treina uma rede neural simples com forward e backward pass.
+
+    network: lista de camadas (cada camada é uma lista de neurônios)
+    X: entradas (matriz de treino)
+    y: saídas esperadas (vetor)
+    epochs: número de épocas de treino
+    learning_rate: taxa de aprendizado
+    """
+    erros_por_epoca = []
+
+    for epoch in range(epochs):
+        erro_total = 0.0
+
+        for i in range(len(input_value)):
+            input_vector = input_value[i]
+            expected_output = output_value[i]
+
+            # ======= Forward pass =======
+            forward_pass(network, input_vector)
+
+            # ======= Backward pass =======
+            backward_pass(network, input_vector, expected_output, learning_rate)
+
+            # ======= Calcula erro (MSE parcial) =======
+            output_layer = network[-1]
+            outputs = np.array([neuron["output"] for neuron in output_layer])
+            erro_total += np.mean((expected_output - outputs) ** 2)
+
+        erro_medio = erro_total / len(input_value)
+        erros_por_epoca.append(erro_medio)
+
+        if epoch % 10 == 0 or epoch == epochs - 1:
+            print(f"Época {epoch+1}/{epochs} - Erro médio: {erro_medio:.6f}")
+
+    # ======= Plot do erro =======
+    plt.plot(erros_por_epoca)
+    plt.title("Erro médio por época")
+    plt.xlabel("Épocas")
+    plt.ylabel("Erro (MSE)")
+    plt.grid(True)
+    plt.show()
+
+    return network
+
+
 
 
 """
