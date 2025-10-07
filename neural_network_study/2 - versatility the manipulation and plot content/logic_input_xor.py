@@ -18,6 +18,5 @@ def main():
         0
     ])
 
-    #todo montar network já com as layers necessarias para o calculo do xor
 
 
