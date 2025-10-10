@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/neural_network_study/01save/4 - alice/alice_programa.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/01save/5 - organize/Layer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/01save/5 - organize/Neuralnet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/01save/5 - organize/Neuron.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/01save/5 - organize/activation_functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/activation_functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/neuralnet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/serialization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/show_graphic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/activation_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/activation_functions_legacy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_and.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_and_legacy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/logic_input_xor_legacy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet_legacy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/serialization.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/serialization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/show_graphic.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/show_graphic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.json.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.pkl.pkl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
