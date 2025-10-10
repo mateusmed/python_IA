@@ -3,12 +3,12 @@ import pickle
 import numpy as np
 import json
 
-
+"""
+        Classe de codificador JSON especial para lidar com tipos de dados NumPy.
+        Converte arrays NumPy em listas e tipos numéricos NumPy em tipos Python nativos.
+"""
 class NumpyEncoder(json.JSONEncoder):
-    """
-    Classe de codificador JSON especial para lidar com tipos de dados NumPy.
-    Converte arrays NumPy em listas e tipos numéricos NumPy em tipos Python nativos.
-    """
+
     def default(self, obj):
         if isinstance(obj, np.ndarray):
             return obj.tolist()
@@ -20,8 +20,7 @@ class NumpyEncoder(json.JSONEncoder):
 """
     [PRIVADO] Salva apenas os pesos e bias da rede em formato legível (JSON).
     Chamado internamente por save_network_state.
-    """
-
+"""
 def save_network_state_json(network, filename):
     network_data = []
 
@@ -56,8 +55,9 @@ def save_network_state_json(network, filename):
 """
 def save_network_state(network, filename="network_state", create_new_file_legible=True):
 
-    extension = ".pkl"
-    filename = filename + extension
+    # Garante que o nome do arquivo tenha a extensão .pkl, mas sem duplicá-la.
+    if not filename.endswith(".pkl"):
+        filename += ".pkl"
 
     try:
         with open(filename, 'wb') as file:
@@ -67,14 +67,18 @@ def save_network_state(network, filename="network_state", create_new_file_legibl
         print(f"\nErro ao salvar a rede: {e}")
 
     if create_new_file_legible:
-
-        json_filename = filename.replace('.pkl', '.json')
+        # Cria o nome do arquivo JSON a partir do nome do arquivo pkl de forma segura
+        json_filename = filename.rsplit('.pkl', 1)[0] + '.json'
         save_network_state_json(network, json_filename)
 
 """
 Carrega o estado da rede de um arquivo pickle.
 """
 def load_network_state(filename="network_state.pkl"):
+    # Garante que o nome do arquivo tenha a extensão .pkl para consistência com o salvamento.
+    if not filename.endswith(".pkl"):
+        filename += ".pkl"
+
     try:
         with open(filename, 'rb') as file:
             network = pickle.load(file)
