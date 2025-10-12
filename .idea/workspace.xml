@@ -5,12 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_1_errors.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_3_boundary.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/show_graphic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/activation_functions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/neuralnet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/serialization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/show_graphic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/serialization.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/serialization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/show_graphic.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/show_graphic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.json.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.pkl.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/activation_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/activation_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/logic_input_xor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/neuralnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/neuralnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/plot_1_errors.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/plot_2_surface.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/plot_3_boundary.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/serialization.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/serialization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/show_graphic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.pkl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +68,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.logic_curve_fitting.executor": "Run",
     "Python.logic_input_xor.executor": "Run",
     "Python.run.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -63,27 +76,50 @@
     "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/mmed/developer/workspaceMateus/python_IA/neural_network_study/5 - organize",
+    "last_opened_file_path": "/home/mmed/developer/workspaceMateus/python_IA/neural_network_study/3 - modularization/regression",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization/regression" />
       <recent name="$PROJECT_DIR$/neural_network_study/5 - organize" />
       <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization" />
       <recent name="C:\dev\workspaceMateus\python_IA\image_classifier\teste3\picture_run" />
       <recent name="C:\dev\workspaceMateus\python_IA\image_classifier" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot" />
+      <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization/classification" />
       <recent name="$PROJECT_DIR$/neural_network_study/01save" />
       <recent name="$PROJECT_DIR$/neural_network_study/save" />
       <recent name="$PROJECT_DIR$/neural_network_study/step2 - verility the manipulation and plot content" />
-      <recent name="$PROJECT_DIR$/neural_network_study/step 1 - basic neuronium" />
-      <recent name="$PROJECT_DIR$/pos" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.logic_input_xor">
+  <component name="RunManager" selected="Python.logic_curve_fitting">
+    <configuration name="logic_curve_fitting" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_IA" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/neural_network_study/3 - modularization/regression" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/logic_curve_fitting.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="logic_input_xor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_IA" />
       <option name="ENV_FILES" value="" />
@@ -97,7 +133,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/logic_input_xor.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -153,6 +189,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.logic_curve_fitting" />
         <item itemvalue="Python.logic_input_xor" />
         <item itemvalue="Python.logic_input_xor_legacy" />
       </list>
@@ -237,7 +274,7 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/neural_network_study/3 - modularization/neuralnet.py</url>
+          <url>file://$PROJECT_DIR$/neural_network_study/3 - modularization/classification/neuralnet.py</url>
           <line>139</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
