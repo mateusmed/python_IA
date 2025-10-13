@@ -6,47 +6,47 @@ import activation_functions as activation_functions
 
 def main():
     # --- 1. Geração de Dados para Regressão ---
-    # Gera 50 pontos de dados para a função seno com algum ruído
-    np.random.seed(42) # Para resultados reproduzíveis
-    X = np.linspace(-np.pi, np.pi, 50).reshape(50, 1)
-    y = np.sin(X) + np.random.normal(0, 0.15, (50, 1))
+    # Gera 50 pontos de dados simulando temperatura ao longo de um dia (seno com ruído)
+    np.random.seed(42)
+    X = np.linspace(0, 24, 50).reshape(50, 1)  # Horas do dia
+    y = 10 + 10 * np.sin((X - 6) * np.pi / 12) + np.random.normal(0, 1.5, (50, 1))
+    # A curva oscila entre ~0°C e ~20°C
 
-    # --- 2. Construção da Rede para Regressão ---
-    # Estrutura: 1 entrada -> 2 camadas ocultas com 32 neurônios -> 1 saída
+    # --- 2. Construção da Rede ---
     network = neuralnet.build_network([1, 16, 16, 1])
 
-    # Altera a função de ativação da camada de SAÍDA para linear
-    # Isso é crucial para problemas de regressão, para não limitar a saída entre 0 e 1
+    # Define função de ativação linear na saída
     output_layer = network[-1]
     for neuron in output_layer:
         neuron["activation_func"] = activation_functions.linear
         neuron["activation_deriv"] = activation_functions.linear_derivative
 
-    # --- 3. Treinamento da Rede ---
-    print("Iniciando treinamento da rede para o problema de Curve Fitting...")
+    # --- 3. Treinamento ---
+    print("Iniciando treinamento da rede para previsão de temperatura...")
     trained_net, historico_erros = neuralnet.train_network(
         network=network,
         input_value=X,
         output_value=y,
-        epochs=5000,       # Reduzido de 20000
-        learning_rate=0.01  # Aumentado de 0.001
+        epochs=5000,
+        learning_rate=0.01
     )
     print("Treinamento concluído.")
 
-    # --- 4. Salvar e Testar a Rede (Opcional) ---
-    serialization.save_network_state(trained_net, filename="curve_fitting_model")
+    # --- 4. Salvamento (opcional) ---
+    serialization.save_network_state(trained_net, filename="temp_prediction_model")
 
-    # --- 5. Visualização dos Resultados ---
+    # --- 5. Visualização ---
     print("\nGerando gráficos de visualização...")
-    
-    # Gráfico 1: Erro por Época
     show_graphic.plot_errors_per_epoch(historico_erros)
-
-    # Gráfico 2: Curve Fit
     show_graphic.plot_curve_fit(trained_net, X, y)
-
-    # Gráfico 3: Arquitetura da Rede
     show_graphic.plot_network_architecture(network=trained_net)
+
+    # --- 6. Previsão de novos valores ---
+    print("\nTestando previsões da rede treinada:")
+    horas_para_prever = np.array([[6], [12], [18], [23]])  # Horários específicos
+    for hora in horas_para_prever:
+        saida = neuralnet.forward_pass(trained_net, hora)
+        print(f"Hora: {hora[0]:>2}h | Temperatura prevista: {saida[0]:.2f} °C")
 
 if __name__ == "__main__":
     main()

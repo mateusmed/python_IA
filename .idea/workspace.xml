@@ -5,24 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_1_errors.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_3_boundary.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/show_graphic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/activation_functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/neuralnet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/serialization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/show_graphic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/activation_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/activation_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/logic_input_xor.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/logic_input_xor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/neuralnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/neuralnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/plot_1_errors.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/plot_2_surface.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/plot_3_boundary.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/serialization.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/serialization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/show_graphic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/xor_trained_model.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/logic_curve_fitting.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/logic_curve_fitting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_1_errors.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_1_errors.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_5_curve_fit.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_5_curve_fit.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
