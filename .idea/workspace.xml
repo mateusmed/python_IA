@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression-embedding/activation_functions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression-embedding/logic-embedding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression-embedding/neuralnet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression-embedding/serialization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression-embedding/show_graphic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/logic_curve_fitting.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/logic_curve_fitting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_1_errors.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_1_errors.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_5_curve_fit.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/regression/plot/plot_5_curve_fit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_1_errors.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_1_errors.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_4.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_2_surface_angle_4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_3_boundary.png" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot/plot_3_boundary.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,18 +70,18 @@
     "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/mmed/developer/workspaceMateus/python_IA/neural_network_study/3 - modularization/regression",
+    "last_opened_file_path": "/home/mmed/developer/workspaceMateus/python_IA/neural_network_study/3 - modularization/regression-embbeding",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization/regression-embbeding" />
       <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization/regression" />
       <recent name="$PROJECT_DIR$/neural_network_study/5 - organize" />
       <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization" />
       <recent name="C:\dev\workspaceMateus\python_IA\image_classifier\teste3\picture_run" />
-      <recent name="C:\dev\workspaceMateus\python_IA\image_classifier" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/neural_network_study/3 - modularization/classification/plot" />
@@ -173,13 +181,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.logic_curve_fitting" />
-        <item itemvalue="Python.logic_input_xor" />
-        <item itemvalue="Python.logic_input_xor_legacy" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -204,6 +205,8 @@
       <workItem from="1605792765944" duration="1135000" />
       <workItem from="1637505194331" duration="2198000" />
       <workItem from="1759840579338" duration="11000" />
+      <workItem from="1762175429937" duration="47000" />
+      <workItem from="1762544501243" duration="8000" />
     </task>
     <servers />
   </component>
@@ -250,22 +253,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/neural_network_study/2 - versatility the manipulation and plot content/neuralnet_legacy.py</url>
-          <line>97</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/neural_network_study/3 - modularization/classification/neuralnet.py</url>
-          <line>139</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
