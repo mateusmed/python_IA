@@ -5,12 +5,35 @@ import show_graphic as show_graphic
 import activation_functions as activation_functions
 
 def main():
-    # dataset simples de exemplo
-    X = np.eye(3)  # [ [1,0,0], [0,1,0], [0,0,1] ]
+    # --- 1. Frases de exemplo ---
+    sentences = [
+        "gato dorme",
+        "gato mia",
+        "carro anda",
+        "carro buzina",
+    ]
 
-    # arquitetura do autoencoder
-    # entrada 3 → escondida 2 → saída 3 (reconstrução)
-    network = neuralnet.build_network([3, 2, 3])
+    # --- 2. Vetorização simples (Bag of Words) ---
+    # Cria um vocabulário com todas as palavras únicas
+    vocab = sorted(set(" ".join(sentences).split()))
+    vocab_index = {word: i for i, word in enumerate(vocab)}
+
+    # Converte frases em vetores binários
+    def vectorize(sentence):
+        vec = np.zeros(len(vocab))
+        for word in sentence.split():
+            vec[vocab_index[word]] = 1
+        return vec
+
+    X = np.array([vectorize(s) for s in sentences])
+    print("Vocabulário:", vocab)
+    print("Entradas (vetores):\n", X)
+
+
+    # --- 3. Cria o autoencoder ---
+    # Exemplo: entrada N palavras → camada oculta 2 → saída N palavras
+    input_size = len(vocab)
+    network = neuralnet.build_network([input_size, 2, input_size])
 
     # camada de saída linear (sem restrição de faixa)
     output_layer = network[-1]
@@ -23,7 +46,7 @@ def main():
         network=network,
         input_value=X,
         output_value=X,
-        epochs=3000,
+        epochs=5000,
         learning_rate=0.05
     )
 
@@ -32,26 +55,32 @@ def main():
 
     print("Training done.\n")
 
-    # --- 4. Save the model ---
-    serialization.save_network_state(trained_net, filename="word_embedding_model")
 
-    # obtém o embedding (saída da camada intermediária)
+    # --- 6. Extrai os embeddings (camada escondida) ---
     print("\nEmbeddings aprendidos:")
+    embeddings = []
     for i, x in enumerate(X):
-        outputs = neuralnet.forward_pass(trained_net, x, return_all=True)
-        hidden = outputs[1]  # camada do meio (embedding)
-        print(f"Entrada {i}: {hidden}")
+        outputs = neuralnet.forward_pass(trained_net, x, return_all_layers=True)
+        # todo melhorar (camada intermediaria)
+        hidden = outputs[1]  # camada intermediária
+        embeddings.append(hidden)
+        print(f"{sentences[i]:<15} -> {hidden}")
 
-    # plota embeddings em 2D
-    words = ["cat", "dog", "car"]
-    embeddings = np.array([neuralnet.forward_pass(trained_net, x, return_all=True)[1] for x in X])
-    show_graphic.plot_embeddings(words, embeddings)
+    embeddings = np.array(embeddings)
+
+    # todo depois tentar fazer correlação não das sentensas e sim das palavras soltas
+    # --- 7. Mostra os embeddings em gráfico 2D ---
+    show_graphic.plot_embeddings(sentences, embeddings)
+
 
     # --- 7. Plot embeddings 3D ---
     print("Generating 3D embedding plots (rotated views)...")
     # Expand to 3D (add a dummy z-axis = 0)
     embeddings_3d = np.hstack([embeddings, np.zeros((embeddings.shape[0], 1))])
-    show_graphic.plot_embeddings_3d(words, embeddings_3d)
+    show_graphic.plot_embeddings_3d(sentences, embeddings_3d)
+
+    # --- 8. Salva o modelo (opcional) ---
+    serialization.save_network_state(trained_net, filename="text_autoencoder_model")
 
 
 if __name__ == "__main__":

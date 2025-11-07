@@ -61,9 +61,10 @@ def build_network(layer_structure):
     return network
 
 ## PEQUENO AJUSTE EM FORWARD PASS
-def forward_pass(network, input_vector, return_all=False):
+def forward_pass(network, input_vector, return_all_layers=False):
     inputs = input_vector
-    all_outputs = [inputs]
+    all_activations = [inputs]  # guarda as ativações de cada camada
+
     for layer_index, layer in enumerate(network):
         layer_outputs = []
         for neuron in layer:
@@ -72,8 +73,12 @@ def forward_pass(network, input_vector, return_all=False):
             neuron["output"] = activation_response
             layer_outputs.append(neuron["output"])
         inputs = np.array(layer_outputs)
-        all_outputs.append(inputs)
-    return all_outputs if return_all else inputs
+        all_activations.append(inputs)
+
+    if return_all_layers:
+        return all_activations  # lista: [entrada, camada1, camada2, ...]
+    else:
+        return inputs  # só a saída final
 
 
 def calculate_layer_errors(network, layer_index, expected_output):
