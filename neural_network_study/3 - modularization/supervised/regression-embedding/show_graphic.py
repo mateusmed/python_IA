@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import os
 
 # --- Diretório para salvar os gráficos ---
-OUTPUT_DIR = "./plot"
+OUTPUT_DIR = "plot"
 
 try:
     from neuralnet import forward_pass
