@@ -60,5 +60,35 @@ def get_network():
         "layers": serialize_network(network)
     })
 
+@app.route("/api/curve-space")
+def get_curve_space():
+    # Define a grid for the decision boundary
+    x_min, x_max = -0.5, 1.5
+    y_min, y_max = -0.5, 1.5
+    resolution = 40  # 40x40 grid
+    
+    x_range = np.linspace(x_min, x_max, resolution)
+    y_range = np.linspace(y_min, y_max, resolution)
+    xx, yy = np.meshgrid(x_range, y_range)
+    
+    grid_points = np.c_[xx.ravel(), yy.ravel()]
+    
+    # Get predictions for each point in the grid
+    predictions = []
+    for point in grid_points:
+        pred = neuralnet.forward_pass(network, point)[0]
+        predictions.append(float(pred))
+    
+    return jsonify({
+        "x": x_range.tolist(),
+        "y": y_range.tolist(),
+        "z": predictions,
+        "resolution": resolution,
+        "train_data": {
+            "X": X.tolist(),
+            "y": y.tolist()
+        }
+    })
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
