@@ -5,19 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neural Network Panel</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
     <style>
         body {
             margin: 0;
-            padding: 0;
-            background-color: #1e1e1e;
-            color: white;
+            padding: 15px;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr 1.2fr;
+            gap: 15px;
+            height: 100vh;
+            box-sizing: border-box;
             overflow: hidden;
         }
 
-        #panel-container {
-            width: 100vw;
-            height: 100vh;
+        #header {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e1e1e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border-bottom: 2px solid #00bcd4;
+        }
+
+        .window {
+            background: #1e1e1e;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .window-header {
+            background: #2d2d2d;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .window-content {
+            flex-grow: 1;
+            position: relative;
+            background: #000;
+        }
+
+        #window-3d-surface {
+            grid-column: span 2;
         }
 
         .neuron {
@@ -33,37 +87,26 @@
         }
 
         .link {
-            stroke-opacity: 0.6;
-            transition: stroke-opacity 0.2s;
-        }
-
-        .link:hover {
-            stroke-opacity: 1;
+            stroke-opacity: 0.4;
         }
 
         .info-panel {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 8px;
-            width: 300px;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 12px;
+            border-radius: 6px;
+            width: 200px;
             pointer-events: none;
             display: none;
             border: 1px solid #444;
-        }
-
-        .header {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #00bcd4;
-            padding-bottom: 5px;
+            z-index: 1000;
         }
 
         .detail-row {
-            margin: 5px 0;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
+            margin: 3px 0;
         }
 
         .value {
@@ -71,119 +114,111 @@
             float: right;
         }
 
-        #controls {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 8px;
-            z-index: 100;
-        }
-
         button {
             background: #00bcd4;
             border: none;
-            color: white;
-            padding: 8px 15px;
+            color: #000;
+            padding: 4px 10px;
             border-radius: 4px;
             cursor: pointer;
-            margin-right: 5px;
+            font-weight: bold;
+            font-size: 0.75rem;
         }
 
         button:hover {
             background: #008ba3;
         }
 
+        canvas {
+            display: block;
+        }
+
     </style>
 </head>
 <body>
-    <div id="controls">
-        <button id="reset-zoom">Reset View</button>
-        <span id="status">Loading Network...</span>
+    <div id="header">
+        <div style="font-size: 1.1rem; font-weight: bold; color: #00bcd4;">NEURAL ENGINE PRO</div>
+        <div id="status" style="font-size: 0.8rem;">INITIALIZING...</div>
     </div>
 
-    <div id="panel-container"></div>
-    <div class="info-panel" id="info-panel">
-        <div class="header" id="info-id">Neuron Details</div>
-        <div class="detail-row">Bias: <span class="value" id="info-bias"></span></div>
-        <div class="detail-row">Last Output: <span class="value" id="info-output"></span></div>
-        <div class="detail-row">Activation: <span class="value" id="info-activation"></span></div>
-        <div class="detail-row" style="margin-top:10px;">Weights:</div>
-        <div id="info-weights" style="font-size: 0.8rem; color: #aaa;"></div>
+    <!-- Window 1: 2D Network Structure -->
+    <div class="window" id="window-network">
+        <div class="window-header">
+            <span>2D Topology</span>
+            <button id="reset-zoom">Reset View</button>
+        </div>
+        <div class="window-content" id="network-container">
+            <div class="info-panel" id="info-panel">
+                <div style="font-weight:bold; margin-bottom:5px; border-bottom:1px solid #00bcd4;" id="info-id">Neuron</div>
+                <div class="detail-row">Bias: <span class="value" id="info-bias"></span></div>
+                <div class="detail-row">Output: <span class="value" id="info-output"></span></div>
+                <div id="info-weights" style="margin-top:5px; font-size: 0.7rem; color: #888;"></div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const margin = { top: 50, right: 50, bottom: 50, left: 100 };
+    <!-- Window 2: 2D Curve Space -->
+    <div class="window" id="window-curve">
+        <div class="window-header">
+            <span>Decision Map (2D)</span>
+            <span style="font-size:0.7rem; color:#888;">Heatmap</span>
+        </div>
+        <div class="window-content" id="curve-container"></div>
+    </div>
 
-        const svg = d3.select("#panel-container")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height);
+    <!-- Window 3: 3D Decision Surface -->
+    <div class="window" id="window-3d-surface">
+        <div class="window-header">
+            <span>3D Decision Surface</span>
+            <span style="font-size:0.7rem; color:#888;">Drag to rotate • Scroll to zoom • Right-click to pan</span>
+        </div>
+        <div class="window-content" id="three-container"></div>
+    </div>
 
-        const g = svg.append("g");
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-        // Set up zoom
-        const zoom = d3.zoom()
-            .scaleExtent([0.1, 5])
-            .on("zoom", (event) => {
-                g.attr("transform", event.transform);
-            });
+        // Shared state
+        let networkData = null;
+        let curveData = null;
 
-        svg.call(zoom);
+        // --- Window 1: Network Topology (D3.js) ---
+        const netContainer = document.getElementById("network-container");
+        const netSvg = d3.select("#network-container").append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%");
+
+        const netG = netSvg.append("g");
+
+        const netZoom = d3.zoom()
+            .scaleExtent([0.1, 8])
+            .on("zoom", (event) => netG.attr("transform", event.transform));
+
+        netSvg.call(netZoom);
 
         d3.select("#reset-zoom").on("click", () => {
-            svg.transition().duration(750).call(
-                zoom.transform,
-                d3.zoomIdentity
-            );
+            netSvg.transition().duration(500).call(netZoom.transform, d3.zoomIdentity);
         });
 
-        // Load network data
-        async function loadNetwork() {
-            try {
-                const response = await fetch('/api/network');
-                const data = await response.json();
-                document.getElementById('status').textContent = 'Network Loaded';
-                renderNetwork(data);
-            } catch (err) {
-                console.error("Error loading network:", err);
-                document.getElementById('status').textContent = 'Error Loading Network';
-            }
-        }
-
-        function renderNetwork(data) {
-            g.selectAll("*").remove();
-
-            const structure = data.structure;
-            const layers = data.layers;
-
-            // Compute positions
-            const nodeRadius = 25;
+        function render2DNetwork(data) {
+            netG.selectAll("*").remove();
+            const rect = netContainer.getBoundingClientRect();
+            const width = rect.width, height = rect.height;
+            const margin = { top: 30, right: 30, bottom: 30, left: 30 };
+            const structure = data.structure, layers = data.layers;
+            const nodeRadius = 14;
             const layerGap = (width - margin.left - margin.right) / (structure.length);
             
-            // Nodes data structure for D3
-            const nodes = [];
-            const links = [];
-
-            // Add Input nodes (layer 0)
+            const nodes = [], links = [];
             const inputNodes = [];
             const inputYStep = (height - margin.top - margin.bottom) / (structure[0] + 1);
             for (let i = 0; i < structure[0]; i++) {
-                const n = {
-                    id: `0.${i+1}`,
-                    x: margin.left,
-                    y: margin.top + (i + 1) * inputYStep,
-                    layer: 0,
-                    isInput: true
-                };
+                const n = { id: `In.${i+1}`, x: margin.left, y: margin.top + (i + 1) * inputYStep, layer: 0, isInput: true };
                 nodes.push(n);
                 inputNodes.push(n);
             }
 
-            // Process existing layers (1, 2, ...)
             let prevLayerNodes = inputNodes;
             layers.forEach((layer, layerIdx) => {
                 const currentLayerNodes = [];
@@ -191,93 +226,234 @@
                 const yStep = (height - margin.top - margin.bottom) / (layer.length + 1);
 
                 layer.forEach((neuron, neuronIdx) => {
-                    const n = {
-                        ...neuron,
-                        x: margin.left + currentLayerIdx * layerGap,
-                        y: margin.top + (neuronIdx + 1) * yStep,
-                        layer: currentLayerIdx
-                    };
+                    const n = { ...neuron, x: margin.left + currentLayerIdx * layerGap, y: margin.top + (neuronIdx + 1) * yStep, layer: currentLayerIdx };
                     nodes.push(n);
                     currentLayerNodes.push(n);
-
-                    // Add links from prev layer
                     neuron.weights.forEach((w, wIdx) => {
-                        links.push({
-                            source: prevLayerNodes[wIdx],
-                            target: n,
-                            weight: w
-                        });
+                        links.push({ source: prevLayerNodes[wIdx], target: n, weight: w });
                     });
                 });
                 prevLayerNodes = currentLayerNodes;
             });
 
-            // Color scale for weights
-            const colorScale = d3.scaleDiverging()
-                .domain([-1, 0, 1])
-                .interpolator(d3.interpolateRdYlBu);
+            const colorScale = d3.scaleDiverging().domain([-1.5, 0, 1.5]).interpolator(d3.interpolateRdBu);
 
-            // Draw links
-            g.selectAll(".link")
-                .data(links)
-                .enter()
-                .append("line")
-                .attr("class", "link")
-                .attr("x1", d => d.source.x)
-                .attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x)
-                .attr("y2", d => d.target.y)
+            netG.selectAll(".link")
+                .data(links).enter().append("line").attr("class", "link")
+                .attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x).attr("y2", d => d.target.y)
                 .attr("stroke", d => colorScale(d.weight))
-                .attr("stroke-width", d => Math.abs(d.weight) * 3 + 1);
+                .attr("stroke-width", d => Math.abs(d.weight) * 2 + 0.5);
 
-            // Draw nodes
-            const nodeGroups = g.selectAll(".neuron-group")
-                .data(nodes)
-                .enter()
-                .append("g")
-                .attr("class", "neuron-group")
-                .attr("transform", d => `translate(${d.x},${d.y})`);
+            const nodeGroups = netG.selectAll(".neuron-group")
+                .data(nodes).enter().append("g").attr("transform", d => `translate(${d.x},${d.y})`);
 
-            nodeGroups.append("circle")
-                .attr("class", "neuron")
-                .attr("r", nodeRadius)
-                .attr("fill", d => d.isInput ? "#555" : "#333")
-                .on("mouseover", showInfo)
-                .on("mouseout", hideInfo);
-
-            nodeGroups.append("text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ".35em")
-                .attr("fill", "white")
-                .attr("font-size", "10px")
-                .text(d => d.id);
+            nodeGroups.append("circle").attr("class", "neuron").attr("r", nodeRadius)
+                .attr("fill", d => d.isInput ? "#444" : "#111")
+                .on("mouseover", (event, d) => {
+                    if (d.isInput) return;
+                    d3.select("#info-panel").style("display", "block");
+                    d3.select("#info-id").text(`Neuron ${d.id}`);
+                    d3.select("#info-bias").text(d.bias.toFixed(3));
+                    d3.select("#info-output").text(d.output.toFixed(3));
+                    const weights = d.weights.map((w, i) => `W${i}: ${w.toFixed(3)}`).join('<br>');
+                    d3.select("#info-weights").html(weights);
+                })
+                .on("mouseout", () => d3.select("#info-panel").style("display", "none"));
         }
 
-        const infoPanel = d3.select("#info-panel");
-
-        function showInfo(event, d) {
-            if (d.isInput) return;
+        // --- Window 2: 2D Curve Space ---
+        function renderCurveSpace2D(data) {
+            const container = document.getElementById("curve-container");
+            container.innerHTML = "";
+            const rect = container.getBoundingClientRect();
+            const width = rect.width, height = rect.height, res = data.resolution;
+            const canvas = d3.select(container).append("canvas").attr("width", width).attr("height", height).node();
+            const ctx = canvas.getContext("2d");
+            const xScale = d3.scaleLinear().domain([-0.5, 1.5]).range([0, width]);
+            const yScale = d3.scaleLinear().domain([-0.5, 1.5]).range([height, 0]);
+            const colorScale = d3.scaleSequential().domain([0, 1]).interpolator(d3.interpolateViridis);
             
-            infoPanel.style("display", "block");
-            d3.select("#info-id").text(`Neuron ID: ${d.id}`);
-            d3.select("#info-bias").text(d.bias.toFixed(4));
-            d3.select("#info-output").text(d.output.toFixed(4));
-            d3.select("#info-activation").text(d.activation_func);
+            for (let i = 0; i < res; i++) {
+                for (let j = 0; j < res; j++) {
+                    const idx = i + j * res;
+                    ctx.fillStyle = colorScale(data.z[idx]);
+                    ctx.fillRect(i * (width/res), (res-1-j) * (height/res), (width/res)+1, (height/res)+1);
+                }
+            }
+            ctx.strokeStyle = "rgba(255,255,255,0.1)";
+            ctx.beginPath(); ctx.moveTo(xScale(0), 0); ctx.lineTo(xScale(0), height);
+            ctx.moveTo(0, yScale(0)); ctx.lineTo(width, yScale(0)); ctx.stroke();
             
-            const weightText = d.weights.map((w, i) => `W${i}: ${w.toFixed(4)}`).join('<br>');
-            d3.select("#info-weights").html(weightText);
+            data.train_data.X.forEach((point, i) => {
+                ctx.fillStyle = data.train_data.y[i][0] === 1 ? "white" : "red";
+                ctx.beginPath(); ctx.arc(xScale(point[0]), yScale(point[1]), 5, 0, Math.PI * 2); ctx.fill();
+            });
         }
 
-        function hideInfo() {
-            infoPanel.style("display", "none");
+        // --- Window 3: 3D Decision Surface (Three.js) ---
+        let scene, camera, renderer, controls;
+        const threeContainer = document.getElementById("three-container");
+
+        function init3D() {
+            const rect = threeContainer.getBoundingClientRect();
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x050505);
+            
+            camera = new THREE.PerspectiveCamera(45, rect.width / rect.height, 0.1, 1000);
+            camera.position.set(10, 10, 10);
+            
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(rect.width, rect.height);
+            threeContainer.appendChild(renderer.domElement);
+            
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.position.set(15, 15, 15);
+            scene.add(pointLight);
+
+            // Add a simple grid floor for reference
+            const gridHelper = new THREE.GridHelper(20, 20, 0x333333, 0x222222);
+            gridHelper.position.y = -0.01;
+            scene.add(gridHelper);
+
+            // Add Axes helper
+            const axesHelper = new THREE.AxesHelper(5);
+            scene.add(axesHelper);
+
+            animate();
         }
 
-        loadNetwork();
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function render3DSurface(data) {
+            // Remove existing surface
+            const existingSurface = scene.getObjectByName("decisionSurface");
+            if (existingSurface) scene.remove(existingSurface);
+            const existingPoints = scene.getObjectByName("trainingPoints");
+            if (existingPoints) scene.remove(existingPoints);
+
+            const res = data.resolution;
+            const size = 10; // Overall size in world units
+            const halfSize = size / 2;
+            
+            // Create Geometry for Surface
+            const geometry = new THREE.PlaneGeometry(size, size, res - 1, res - 1);
+            geometry.rotateX(-Math.PI / 2); // Rotate to lay flat on XZ plane
+
+            const vertices = geometry.attributes.position.array;
+            
+            // Map our decision data to the height (Y axis)
+            // data.z is flat [row0, row1, ...]
+            for (let j = 0; j < res; j++) {
+                for (let i = 0; i < res; i++) {
+                    const idx = i + j * res;
+                    const z_val = data.z[idx];
+                    // Buffer geometry vertices are flat [x,y,z, x,y,z ...]
+                    // After rotation: X is X, Y is height, Z is Z
+                    const vertIdx = idx * 3;
+                    vertices[vertIdx + 1] = z_val * 3; // Scale height by 3
+                }
+            }
+            
+            geometry.computeVertexNormals();
+
+            // Material with color mapping
+            // Using Vertex colors for the heatmap effect
+            const colors = [];
+            const colorMap = d3.interpolateViridis;
+            for (let i = 0; i < data.z.length; i++) {
+                const c = d3.color(colorMap(data.z[i]));
+                colors.push(c.r / 255, c.g / 255, c.b / 255);
+            }
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+            const material = new THREE.MeshPhongMaterial({
+                vertexColors: true,
+                side: THREE.DoubleSide,
+                shininess: 50,
+                transparent: true,
+                opacity: 0.9
+            });
+
+            const surface = new THREE.Mesh(geometry, material);
+            surface.name = "decisionSurface";
+            scene.add(surface);
+
+            // Add Training Points as spheres
+            const pointsGroup = new THREE.Group();
+            pointsGroup.name = "trainingPoints";
+            
+            const pointGeom = new THREE.SphereGeometry(0.2, 16, 16);
+            data.train_data.X.forEach((point, i) => {
+                const target = data.train_data.y[i][0];
+                const mat = new THREE.MeshPhongMaterial({ 
+                    color: target === 1 ? 0xffffff : 0xff0000,
+                    emissive: target === 1 ? 0x222222 : 0x330000
+                });
+                const sphere = new THREE.Mesh(pointGeom, mat);
+                
+                // Map [0,1] range to [-halfSize, halfSize]
+                const px = (point[0] - 0.5) * size;
+                const pz = (point[1] - 0.5) * size;
+                const py = target * 3;
+                
+                sphere.position.set(px, py, pz);
+                pointsGroup.add(sphere);
+            });
+            scene.add(pointsGroup);
+            
+            // Center camera on the model
+            controls.target.set(0, 1.5, 0);
+            camera.position.set(8, 8, 8);
+        }
+
+        // --- Initialization ---
+        async function init() {
+            init3D();
+            try {
+                const [netRes, curveRes] = await Promise.all([
+                    fetch('/api/network').then(r => r.json()),
+                    fetch('/api/curve-space').then(r => r.json())
+                ]);
+                
+                networkData = netRes;
+                curveData = curveRes;
+                
+                document.getElementById('status').textContent = 'SYSTEMS ONLINE';
+                render2DNetwork(networkData);
+                renderCurveSpace2D(curveData);
+                render3DSurface(curveData);
+                
+            } catch (err) {
+                console.error(err);
+                document.getElementById('status').textContent = 'SYSTEM ERROR';
+            }
+        }
 
         window.addEventListener('resize', () => {
-            // Update width/height on resize
+            const rect3d = threeContainer.getBoundingClientRect();
+            camera.aspect = rect3d.width / rect3d.height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(rect3d.width, rect3d.height);
+            
+            if (networkData) render2DNetwork(networkData);
+            if (curveData) {
+                renderCurveSpace2D(curveData);
+                render3DSurface(curveData);
+            }
         });
 
+        init();
     </script>
 </body>
 </html>
