@@ -199,7 +199,7 @@ def train_network(network, input_value, output_value, epochs, learning_rate=0.1)
             # ======= Backward pass =======
             backward_pass(network, input_vector, expected_output, learning_rate)
 
-            # ======= Calcula erro (MSE parcial) =======
+            # ======= Calcula erro (MSE ERRO QUADRATICO parcial) =======
             output_layer = network[-1]
             outputs = np.array([neuron["output"] for neuron in output_layer])
             erro_total += np.mean((expected_output - outputs) ** 2)
