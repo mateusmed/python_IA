@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Network Panel</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        #panel-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .neuron {
+            stroke: #444;
+            stroke-width: 2px;
+            transition: r 0.2s, stroke-width 0.2s;
+        }
+
+        .neuron:hover {
+            stroke: #00bcd4;
+            stroke-width: 4px;
+            cursor: pointer;
+        }
+
+        .link {
+            stroke-opacity: 0.6;
+            transition: stroke-opacity 0.2s;
+        }
+
+        .link:hover {
+            stroke-opacity: 1;
+        }
+
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            width: 300px;
+            pointer-events: none;
+            display: none;
+            border: 1px solid #444;
+        }
+
+        .header {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #00bcd4;
+            padding-bottom: 5px;
+        }
+
+        .detail-row {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .value {
+            color: #00bcd4;
+            float: right;
+        }
+
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 100;
+        }
+
+        button {
+            background: #00bcd4;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        button:hover {
+            background: #008ba3;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <button id="reset-zoom">Reset View</button>
+        <span id="status">Loading Network...</span>
+    </div>
+
+    <div id="panel-container"></div>
+    <div class="info-panel" id="info-panel">
+        <div class="header" id="info-id">Neuron Details</div>
+        <div class="detail-row">Bias: <span class="value" id="info-bias"></span></div>
+        <div class="detail-row">Last Output: <span class="value" id="info-output"></span></div>
+        <div class="detail-row">Activation: <span class="value" id="info-activation"></span></div>
+        <div class="detail-row" style="margin-top:10px;">Weights:</div>
+        <div id="info-weights" style="font-size: 0.8rem; color: #aaa;"></div>
+    </div>
+
+    <script>
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const margin = { top: 50, right: 50, bottom: 50, left: 100 };
+
+        const svg = d3.select("#panel-container")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        const g = svg.append("g");
+
+        // Set up zoom
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 5])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        d3.select("#reset-zoom").on("click", () => {
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity
+            );
+        });
+
+        // Load network data
+        async function loadNetwork() {
+            try {
+                const response = await fetch('/api/network');
+                const data = await response.json();
+                document.getElementById('status').textContent = 'Network Loaded';
+                renderNetwork(data);
+            } catch (err) {
+                console.error("Error loading network:", err);
+                document.getElementById('status').textContent = 'Error Loading Network';
+            }
+        }
+
+        function renderNetwork(data) {
+            g.selectAll("*").remove();
+
+            const structure = data.structure;
+            const layers = data.layers;
+
+            // Compute positions
+            const nodeRadius = 25;
+            const layerGap = (width - margin.left - margin.right) / (structure.length);
+            
+            // Nodes data structure for D3
+            const nodes = [];
+            const links = [];
+
+            // Add Input nodes (layer 0)
+            const inputNodes = [];
+            const inputYStep = (height - margin.top - margin.bottom) / (structure[0] + 1);
+            for (let i = 0; i < structure[0]; i++) {
+                const n = {
+                    id: `0.${i+1}`,
+                    x: margin.left,
+                    y: margin.top + (i + 1) * inputYStep,
+                    layer: 0,
+                    isInput: true
+                };
+                nodes.push(n);
+                inputNodes.push(n);
+            }
+
+            // Process existing layers (1, 2, ...)
+            let prevLayerNodes = inputNodes;
+            layers.forEach((layer, layerIdx) => {
+                const currentLayerNodes = [];
+                const currentLayerIdx = layerIdx + 1;
+                const yStep = (height - margin.top - margin.bottom) / (layer.length + 1);
+
+                layer.forEach((neuron, neuronIdx) => {
+                    const n = {
+                        ...neuron,
+                        x: margin.left + currentLayerIdx * layerGap,
+                        y: margin.top + (neuronIdx + 1) * yStep,
+                        layer: currentLayerIdx
+                    };
+                    nodes.push(n);
+                    currentLayerNodes.push(n);
+
+                    // Add links from prev layer
+                    neuron.weights.forEach((w, wIdx) => {
+                        links.push({
+                            source: prevLayerNodes[wIdx],
+                            target: n,
+                            weight: w
+                        });
+                    });
+                });
+                prevLayerNodes = currentLayerNodes;
+            });
+
+            // Color scale for weights
+            const colorScale = d3.scaleDiverging()
+                .domain([-1, 0, 1])
+                .interpolator(d3.interpolateRdYlBu);
+
+            // Draw links
+            g.selectAll(".link")
+                .data(links)
+                .enter()
+                .append("line")
+                .attr("class", "link")
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y)
+                .attr("stroke", d => colorScale(d.weight))
+                .attr("stroke-width", d => Math.abs(d.weight) * 3 + 1);
+
+            // Draw nodes
+            const nodeGroups = g.selectAll(".neuron-group")
+                .data(nodes)
+                .enter()
+                .append("g")
+                .attr("class", "neuron-group")
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+
+            nodeGroups.append("circle")
+                .attr("class", "neuron")
+                .attr("r", nodeRadius)
+                .attr("fill", d => d.isInput ? "#555" : "#333")
+                .on("mouseover", showInfo)
+                .on("mouseout", hideInfo);
+
+            nodeGroups.append("text")
+                .attr("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .attr("fill", "white")
+                .attr("font-size", "10px")
+                .text(d => d.id);
+        }
+
+        const infoPanel = d3.select("#info-panel");
+
+        function showInfo(event, d) {
+            if (d.isInput) return;
+            
+            infoPanel.style("display", "block");
+            d3.select("#info-id").text(`Neuron ID: ${d.id}`);
+            d3.select("#info-bias").text(d.bias.toFixed(4));
+            d3.select("#info-output").text(d.output.toFixed(4));
+            d3.select("#info-activation").text(d.activation_func);
+            
+            const weightText = d.weights.map((w, i) => `W${i}: ${w.toFixed(4)}`).join('<br>');
+            d3.select("#info-weights").html(weightText);
+        }
+
+        function hideInfo() {
+            infoPanel.style("display", "none");
+        }
+
+        loadNetwork();
+
+        window.addEventListener('resize', () => {
+            // Update width/height on resize
+        });
+
+    </script>
+</body>
+</html>
