@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/4-data-visualization/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/4-data-visualization/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neural_network_study/4-data-visualization/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network_study/4-data-visualization/templates/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="a68c1b9c-8a07-408e-8891-ceb11e1a110c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -204,7 +200,7 @@
       <workItem from="1762175429937" duration="47000" />
       <workItem from="1762544501243" duration="8000" />
       <workItem from="1772623217916" duration="6292000" />
-      <workItem from="1772816952223" duration="1220000" />
+      <workItem from="1772816952223" duration="1884000" />
     </task>
     <servers />
   </component>

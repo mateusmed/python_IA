@@ -16,62 +16,101 @@
     <style>
         body {
             margin: 0;
-            padding: 15px;
+            padding: 10px;
             background-color: #0a0a0a;
             color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto 1fr 1.2fr;
-            gap: 15px;
+            display: flex;
+            flex-direction: column;
             height: 100vh;
             box-sizing: border-box;
             overflow: hidden;
         }
 
         #header {
-            grid-column: span 2;
+            flex-shrink: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #1e1e1e;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 8px 15px;
+            border-radius: 6px;
             border-bottom: 2px solid #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        #dashboard-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        #top-row {
+            display: flex;
+            height: 40%; /* Initial height */
+            min-height: 100px;
         }
 
         .window {
             background: #1e1e1e;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             border: 1px solid #333;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             position: relative;
+            flex-grow: 1;
+            min-width: 150px;
+        }
+
+        #window-network {
+            width: 50%; /* Initial width */
         }
 
         .window-header {
             background: #2d2d2d;
-            padding: 8px 15px;
+            padding: 6px 12px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #333;
             text-transform: uppercase;
             letter-spacing: 1px;
+            flex-shrink: 0;
         }
 
         .window-content {
             flex-grow: 1;
             position: relative;
             background: #000;
+            overflow: hidden;
         }
 
-        #window-3d-surface {
-            grid-column: span 2;
+        .gutter {
+            background: #121212;
+            transition: background 0.2s;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .gutter:hover {
+            background: #00bcd4;
+        }
+
+        .gutter-v {
+            width: 8px;
+            cursor: col-resize;
+        }
+
+        .gutter-h {
+            height: 8px;
+            cursor: row-resize;
+            width: 100%;
         }
 
         .neuron {
@@ -95,9 +134,9 @@
             top: 10px;
             right: 10px;
             background: rgba(0, 0, 0, 0.85);
-            padding: 12px;
-            border-radius: 6px;
-            width: 200px;
+            padding: 10px;
+            border-radius: 5px;
+            width: 180px;
             pointer-events: none;
             display: none;
             border: 1px solid #444;
@@ -105,8 +144,8 @@
         }
 
         .detail-row {
-            font-size: 0.75rem;
-            margin: 3px 0;
+            font-size: 0.7rem;
+            margin: 2px 0;
         }
 
         .value {
@@ -118,11 +157,11 @@
             background: #00bcd4;
             border: none;
             color: #000;
-            padding: 4px 10px;
-            border-radius: 4px;
+            padding: 3px 8px;
+            border-radius: 3px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
 
         button:hover {
@@ -137,42 +176,48 @@
 </head>
 <body>
     <div id="header">
-        <div style="font-size: 1.1rem; font-weight: bold; color: #00bcd4;">NEURAL ENGINE PRO</div>
-        <div id="status" style="font-size: 0.8rem;">INITIALIZING...</div>
+        <div style="font-size: 1rem; font-weight: bold; color: #00bcd4;">NEURAL ENGINE PRO</div>
+        <div id="status" style="font-size: 0.7rem;">INITIALIZING...</div>
     </div>
 
-    <!-- Window 1: 2D Network Structure -->
-    <div class="window" id="window-network">
-        <div class="window-header">
-            <span>2D Topology</span>
-            <button id="reset-zoom">Reset View</button>
-        </div>
-        <div class="window-content" id="network-container">
-            <div class="info-panel" id="info-panel">
-                <div style="font-weight:bold; margin-bottom:5px; border-bottom:1px solid #00bcd4;" id="info-id">Neuron</div>
-                <div class="detail-row">Bias: <span class="value" id="info-bias"></span></div>
-                <div class="detail-row">Output: <span class="value" id="info-output"></span></div>
-                <div id="info-weights" style="margin-top:5px; font-size: 0.7rem; color: #888;"></div>
+    <div id="dashboard-container">
+        <!-- Row 1: 2D Views -->
+        <div id="top-row">
+            <div class="window" id="window-network">
+                <div class="window-header">
+                    <span>2D Topology</span>
+                    <button id="reset-zoom">Reset</button>
+                </div>
+                <div class="window-content" id="network-container">
+                    <div class="info-panel" id="info-panel">
+                        <div style="font-weight:bold; margin-bottom:5px; border-bottom:1px solid #00bcd4; font-size: 0.8rem;" id="info-id">Neuron</div>
+                        <div class="detail-row">Bias: <span class="value" id="info-bias"></span></div>
+                        <div class="detail-row">Output: <span class="value" id="info-output"></span></div>
+                        <div id="info-weights" style="margin-top:5px; font-size: 0.65rem; color: #888;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gutter gutter-v" id="v-gutter"></div>
+
+            <div class="window" id="window-curve">
+                <div class="window-header">
+                    <span>Decision Map (2D)</span>
+                </div>
+                <div class="window-content" id="curve-container"></div>
             </div>
         </div>
-    </div>
 
-    <!-- Window 2: 2D Curve Space -->
-    <div class="window" id="window-curve">
-        <div class="window-header">
-            <span>Decision Map (2D)</span>
-            <span style="font-size:0.7rem; color:#888;">Heatmap</span>
-        </div>
-        <div class="window-content" id="curve-container"></div>
-    </div>
+        <div class="gutter gutter-h" id="h-gutter"></div>
 
-    <!-- Window 3: 3D Decision Surface -->
-    <div class="window" id="window-3d-surface">
-        <div class="window-header">
-            <span>3D Decision Surface</span>
-            <span style="font-size:0.7rem; color:#888;">Drag to rotate • Scroll to zoom • Right-click to pan</span>
+        <!-- Row 2: 3D View -->
+        <div class="window" id="window-3d-surface" style="flex-grow: 1;">
+            <div class="window-header">
+                <span>3D Decision Surface</span>
+                <span style="font-size:0.65rem; color:#888;">DRAG TO ROTATE • SCROLL TO ZOOM</span>
+            </div>
+            <div class="window-content" id="three-container"></div>
         </div>
-        <div class="window-content" id="three-container"></div>
     </div>
 
     <script type="module">
@@ -190,24 +235,18 @@
             .attr("height", "100%");
 
         const netG = netSvg.append("g");
-
-        const netZoom = d3.zoom()
-            .scaleExtent([0.1, 8])
-            .on("zoom", (event) => netG.attr("transform", event.transform));
-
+        const netZoom = d3.zoom().scaleExtent([0.1, 8]).on("zoom", (event) => netG.attr("transform", event.transform));
         netSvg.call(netZoom);
-
-        d3.select("#reset-zoom").on("click", () => {
-            netSvg.transition().duration(500).call(netZoom.transform, d3.zoomIdentity);
-        });
+        d3.select("#reset-zoom").on("click", () => netSvg.transition().duration(500).call(netZoom.transform, d3.zoomIdentity));
 
         function render2DNetwork(data) {
+            if (!data) return;
             netG.selectAll("*").remove();
             const rect = netContainer.getBoundingClientRect();
             const width = rect.width, height = rect.height;
             const margin = { top: 30, right: 30, bottom: 30, left: 30 };
             const structure = data.structure, layers = data.layers;
-            const nodeRadius = 14;
+            const nodeRadius = Math.min(width, height) / 30;
             const layerGap = (width - margin.left - margin.right) / (structure.length);
             
             const nodes = [], links = [];
@@ -224,32 +263,22 @@
                 const currentLayerNodes = [];
                 const currentLayerIdx = layerIdx + 1;
                 const yStep = (height - margin.top - margin.bottom) / (layer.length + 1);
-
                 layer.forEach((neuron, neuronIdx) => {
                     const n = { ...neuron, x: margin.left + currentLayerIdx * layerGap, y: margin.top + (neuronIdx + 1) * yStep, layer: currentLayerIdx };
                     nodes.push(n);
                     currentLayerNodes.push(n);
-                    neuron.weights.forEach((w, wIdx) => {
-                        links.push({ source: prevLayerNodes[wIdx], target: n, weight: w });
-                    });
+                    neuron.weights.forEach((w, wIdx) => links.push({ source: prevLayerNodes[wIdx], target: n, weight: w }));
                 });
                 prevLayerNodes = currentLayerNodes;
             });
 
             const colorScale = d3.scaleDiverging().domain([-1.5, 0, 1.5]).interpolator(d3.interpolateRdBu);
+            netG.selectAll(".link").data(links).enter().append("line").attr("class", "link")
+                .attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y)
+                .attr("stroke", d => colorScale(d.weight)).attr("stroke-width", d => Math.abs(d.weight) * 2 + 0.5);
 
-            netG.selectAll(".link")
-                .data(links).enter().append("line").attr("class", "link")
-                .attr("x1", d => d.source.x).attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x).attr("y2", d => d.target.y)
-                .attr("stroke", d => colorScale(d.weight))
-                .attr("stroke-width", d => Math.abs(d.weight) * 2 + 0.5);
-
-            const nodeGroups = netG.selectAll(".neuron-group")
-                .data(nodes).enter().append("g").attr("transform", d => `translate(${d.x},${d.y})`);
-
-            nodeGroups.append("circle").attr("class", "neuron").attr("r", nodeRadius)
-                .attr("fill", d => d.isInput ? "#444" : "#111")
+            const nodeGroups = netG.selectAll(".neuron-group").data(nodes).enter().append("g").attr("transform", d => `translate(${d.x},${d.y})`);
+            nodeGroups.append("circle").attr("class", "neuron").attr("r", nodeRadius).attr("fill", d => d.isInput ? "#444" : "#111")
                 .on("mouseover", (event, d) => {
                     if (d.isInput) return;
                     d3.select("#info-panel").style("display", "block");
@@ -264,6 +293,7 @@
 
         // --- Window 2: 2D Curve Space ---
         function renderCurveSpace2D(data) {
+            if (!data) return;
             const container = document.getElementById("curve-container");
             container.innerHTML = "";
             const rect = container.getBoundingClientRect();
@@ -282,12 +312,10 @@
                 }
             }
             ctx.strokeStyle = "rgba(255,255,255,0.1)";
-            ctx.beginPath(); ctx.moveTo(xScale(0), 0); ctx.lineTo(xScale(0), height);
-            ctx.moveTo(0, yScale(0)); ctx.lineTo(width, yScale(0)); ctx.stroke();
-            
+            ctx.beginPath(); ctx.moveTo(xScale(0), 0); ctx.lineTo(xScale(0), height); ctx.moveTo(0, yScale(0)); ctx.lineTo(width, yScale(0)); ctx.stroke();
             data.train_data.X.forEach((point, i) => {
                 ctx.fillStyle = data.train_data.y[i][0] === 1 ? "white" : "red";
-                ctx.beginPath(); ctx.arc(xScale(point[0]), yScale(point[1]), 5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(xScale(point[0]), yScale(point[1]), 4, 0, Math.PI * 2); ctx.fill();
             });
         }
 
@@ -299,123 +327,114 @@
             const rect = threeContainer.getBoundingClientRect();
             scene = new THREE.Scene();
             scene.background = new THREE.Color(0x050505);
-            
             camera = new THREE.PerspectiveCamera(45, rect.width / rect.height, 0.1, 1000);
             camera.position.set(10, 10, 10);
-            
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(rect.width, rect.height);
             threeContainer.appendChild(renderer.domElement);
-            
             controls = new OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
-            
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
             scene.add(ambientLight);
-            
             const pointLight = new THREE.PointLight(0xffffff, 1);
             pointLight.position.set(15, 15, 15);
             scene.add(pointLight);
-
-            // Add a simple grid floor for reference
-            const gridHelper = new THREE.GridHelper(20, 20, 0x333333, 0x222222);
-            gridHelper.position.y = -0.01;
-            scene.add(gridHelper);
-
-            // Add Axes helper
-            const axesHelper = new THREE.AxesHelper(5);
-            scene.add(axesHelper);
-
+            scene.add(new THREE.GridHelper(20, 20, 0x333333, 0x222222));
             animate();
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
+            if (controls) controls.update();
+            if (renderer && scene && camera) renderer.render(scene, camera);
         }
 
         function render3DSurface(data) {
-            // Remove existing surface
+            if (!data || !scene) return;
             const existingSurface = scene.getObjectByName("decisionSurface");
             if (existingSurface) scene.remove(existingSurface);
             const existingPoints = scene.getObjectByName("trainingPoints");
             if (existingPoints) scene.remove(existingPoints);
 
-            const res = data.resolution;
-            const size = 10; // Overall size in world units
-            const halfSize = size / 2;
-            
-            // Create Geometry for Surface
+            const res = data.resolution, size = 10;
             const geometry = new THREE.PlaneGeometry(size, size, res - 1, res - 1);
-            geometry.rotateX(-Math.PI / 2); // Rotate to lay flat on XZ plane
-
+            geometry.rotateX(-Math.PI / 2);
             const vertices = geometry.attributes.position.array;
-            
-            // Map our decision data to the height (Y axis)
-            // data.z is flat [row0, row1, ...]
+            const colors = [];
+            const colorMap = d3.interpolateViridis;
+
             for (let j = 0; j < res; j++) {
                 for (let i = 0; i < res; i++) {
                     const idx = i + j * res;
                     const z_val = data.z[idx];
-                    // Buffer geometry vertices are flat [x,y,z, x,y,z ...]
-                    // After rotation: X is X, Y is height, Z is Z
-                    const vertIdx = idx * 3;
-                    vertices[vertIdx + 1] = z_val * 3; // Scale height by 3
+                    vertices[idx * 3 + 1] = z_val * 3;
+                    const c = d3.color(colorMap(z_val));
+                    colors.push(c.r / 255, c.g / 255, c.b / 255);
                 }
             }
-            
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
             geometry.computeVertexNormals();
 
-            // Material with color mapping
-            // Using Vertex colors for the heatmap effect
-            const colors = [];
-            const colorMap = d3.interpolateViridis;
-            for (let i = 0; i < data.z.length; i++) {
-                const c = d3.color(colorMap(data.z[i]));
-                colors.push(c.r / 255, c.g / 255, c.b / 255);
-            }
-            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-            const material = new THREE.MeshPhongMaterial({
-                vertexColors: true,
-                side: THREE.DoubleSide,
-                shininess: 50,
-                transparent: true,
-                opacity: 0.9
-            });
-
-            const surface = new THREE.Mesh(geometry, material);
+            const surface = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ vertexColors: true, side: THREE.DoubleSide, shininess: 50, transparent: true, opacity: 0.9 }));
             surface.name = "decisionSurface";
             scene.add(surface);
 
-            // Add Training Points as spheres
             const pointsGroup = new THREE.Group();
             pointsGroup.name = "trainingPoints";
-            
-            const pointGeom = new THREE.SphereGeometry(0.2, 16, 16);
+            const pointGeom = new THREE.SphereGeometry(0.15, 16, 16);
             data.train_data.X.forEach((point, i) => {
                 const target = data.train_data.y[i][0];
-                const mat = new THREE.MeshPhongMaterial({ 
-                    color: target === 1 ? 0xffffff : 0xff0000,
-                    emissive: target === 1 ? 0x222222 : 0x330000
-                });
-                const sphere = new THREE.Mesh(pointGeom, mat);
-                
-                // Map [0,1] range to [-halfSize, halfSize]
-                const px = (point[0] - 0.5) * size;
-                const pz = (point[1] - 0.5) * size;
-                const py = target * 3;
-                
-                sphere.position.set(px, py, pz);
+                const sphere = new THREE.Mesh(pointGeom, new THREE.MeshPhongMaterial({ color: target === 1 ? 0xffffff : 0xff0000 }));
+                sphere.position.set((point[0] - 0.5) * size, target * 3, (point[1] - 0.5) * size);
                 pointsGroup.add(sphere);
             });
             scene.add(pointsGroup);
-            
-            // Center camera on the model
             controls.target.set(0, 1.5, 0);
-            camera.position.set(8, 8, 8);
         }
+
+        // --- Resize Observers ---
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                if (entry.target.id === 'network-container') render2DNetwork(networkData);
+                if (entry.target.id === 'curve-container') renderCurveSpace2D(curveData);
+                if (entry.target.id === 'three-container' && renderer && camera) {
+                    const r = entry.target.getBoundingClientRect();
+                    camera.aspect = r.width / r.height;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(r.width, r.height);
+                }
+            }
+        });
+        observer.observe(document.getElementById('network-container'));
+        observer.observe(document.getElementById('curve-container'));
+        observer.observe(document.getElementById('three-container'));
+
+        // --- Gutter Dragging Logic ---
+        const dashboard = document.getElementById('dashboard-container');
+        const topRow = document.getElementById('top-row');
+        const netWin = document.getElementById('window-network');
+        const vGutter = document.getElementById('v-gutter');
+        const hGutter = document.getElementById('h-gutter');
+
+        let isVDragging = false;
+        let isHDragging = false;
+
+        vGutter.addEventListener('mousedown', () => isVDragging = true);
+        hGutter.addEventListener('mousedown', () => isHDragging = true);
+        document.addEventListener('mouseup', () => { isVDragging = false; isHDragging = false; });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isVDragging) {
+                const containerRect = topRow.getBoundingClientRect();
+                const newWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+                if (newWidth > 10 && newWidth < 90) netWin.style.width = `${newWidth}%`;
+            }
+            if (isHDragging) {
+                const containerRect = dashboard.getBoundingClientRect();
+                const newHeight = ((e.clientY - containerRect.top) / containerRect.height) * 100;
+                if (newHeight > 10 && newHeight < 80) topRow.style.height = `${newHeight}%`;
+            }
+        });
 
         // --- Initialization ---
         async function init() {
@@ -425,34 +444,17 @@
                     fetch('/api/network').then(r => r.json()),
                     fetch('/api/curve-space').then(r => r.json())
                 ]);
-                
                 networkData = netRes;
                 curveData = curveRes;
-                
                 document.getElementById('status').textContent = 'SYSTEMS ONLINE';
                 render2DNetwork(networkData);
                 renderCurveSpace2D(curveData);
                 render3DSurface(curveData);
-                
             } catch (err) {
                 console.error(err);
                 document.getElementById('status').textContent = 'SYSTEM ERROR';
             }
         }
-
-        window.addEventListener('resize', () => {
-            const rect3d = threeContainer.getBoundingClientRect();
-            camera.aspect = rect3d.width / rect3d.height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(rect3d.width, rect3d.height);
-            
-            if (networkData) render2DNetwork(networkData);
-            if (curveData) {
-                renderCurveSpace2D(curveData);
-                render3DSurface(curveData);
-            }
-        });
-
         init();
     </script>
 </body>
