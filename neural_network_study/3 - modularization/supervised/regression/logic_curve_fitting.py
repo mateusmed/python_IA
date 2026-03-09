@@ -6,12 +6,37 @@ import activation_functions as activation_functions
 
 def main():
     # --- 1. Geração de Dados para Regressão ---
-    # Gera 50 pontos de dados simulando temperatura ao longo de um dia (seno com ruído)
-    np.random.seed(42)
-    X = np.linspace(0, 24, 50).reshape(50, 1)  # Horas do dia
-    y = 10 + 10 * np.sin((X - 6) * np.pi / 12) + np.random.normal(0, 1.5, (50, 1))
-    # A curva oscila entre ~0°C e ~20°C
+    # Gera 50 pontos de dados simulando temperatura ao longo de um dia
 
+    np.random.seed(42)
+
+    # Horas do dia (0h → 24h)
+    X = np.linspace(0, 24, 50)
+
+    # Desloca a curva para que o pico ocorra à tarde
+    shifted_hours = X - 6
+
+    # Converte para radianos (necessário para o seno)
+    angle = shifted_hours * np.pi / 12
+
+    # Gera a onda senoidal base
+    temperature_wave = np.sin(angle)
+
+    # Ajusta amplitude (de -10 até 10)
+    temperature_scaled = 10 * temperature_wave
+
+    # Desloca a curva para ficar entre aproximadamente 0 e 20
+    temperature_shifted = 10 + temperature_scaled
+
+    # Adiciona ruído para simular medições reais
+    noise = np.random.normal(0, 1.5, 50)
+
+    # Temperatura final
+    y = temperature_shifted + noise
+
+    # Ajusta formato para matriz coluna (necessário para a rede)
+    X = X.reshape(50, 1)
+    y = y.reshape(50, 1)
     # --- 2. Construção da Rede ---
     network = neuralnet.build_network([1, 16, 16, 1])
 
